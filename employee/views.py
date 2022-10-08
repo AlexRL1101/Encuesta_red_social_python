@@ -2,37 +2,27 @@ from django.shortcuts import render, redirect
 from .models import Employee
 from .forms import EmployeeForm
 from django.db.models import Q
+from django.db.models import F, Sum
 
 
 def employees_list(request):
-    # employees = Employee.objects.all()
-
-    search_query = ""
-
-    if request.GET.get('search_query'):
-        search_query = request.GET.get('search_query')
-
-    employees = Employee.objects.filter(
-        Q(emp_name__icontains=search_query) | 
-        Q(emp_role__icontains=search_query) |
-        Q(emp_salary__icontains=search_query)
-    )
+    employees = Employee.objects.all()
 
     context = {
         'employees': employees,
-        'search_query': search_query,
     }
     return render(request, 'employee/list.html', context)
 
 
-def create_employee(request):
+def nueva_encuesta(request):
     form = EmployeeForm()
 
     if request.method == 'POST':
-        form = EmployeeForm(request.POST, request.FILES)
+        # form = EmployeeForm(request.POST, request.FILES)
+        form = EmployeeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('employees-list')
+            return redirect('employees-message')
 
     context = {
         'form': form,
@@ -40,31 +30,17 @@ def create_employee(request):
     return render(request, 'employee/create.html', context)
 
 
-def edit_employee(request, pk):
-    employee = Employee.objects.get(id=pk)
-    form = EmployeeForm(instance=employee)
+def employees_message(request):
+    return render(request, 'employee/mensaje.html')
 
-    if request.method == 'POST':
-        form = EmployeeForm(request.POST, request.FILES, instance=employee)
-        if form.is_valid():
-            form.save()
-            return redirect('employees-list')
+
+def employees_result(request):
+    employees = Employee.objects.all()
+    face = Employee.objects.all()
 
     context = {
-        'employee': employee,
-        'form': form,
+        'employees': employees,
+        'cantidad': employees.count(),
+        'ttfacebook': face,
     }
-    return render(request, 'employee/edit.html', context)
-
-
-def delete_employee(request, pk):
-    employee = Employee.objects.get(id=pk)
-
-    if request.method == 'POST':
-        employee.delete()
-        return redirect('employees-list')
-
-    context = {
-        'employee': employee,
-    }
-    return render(request, 'employee/delete.html', context)
+    return render(request, 'employee/result.html', context)

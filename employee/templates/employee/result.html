@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Encuesta | Redes Sociales</title>
+{% endblock title %}
+
+{% block content %}
+<h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">Redes Sociales</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Cantidad</th>
+            <th scope="col">TP Facebook</th>
+            <th scope="col">TP WhatsApp</th>
+            <th scope="col">TP Twitter</th>
+            <th scope="col">TP Instagram</th>
+            <th scope="col">TP Tiktok</th>
+            <th scope="col">Red más favorita</th>
+            <th scope="col">Red menos favorita</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row">{{ cantidad }}</td>
+            <td>{{ emp.ttfacebook }}</td>
+            <td>{{ emp.Sexo }}</td>
+            <td>{{ emp.Social }}</td>
+            <td>{{ emp.Facebook }}</td>
+            <td>{{ emp.WhatsApp }}</td>
+            <td>{{ emp.Twitter }}</td>
+            <td>{{ emp.Instagram }}</td>
+            <td>{{ emp.Tiktok }}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock content %}

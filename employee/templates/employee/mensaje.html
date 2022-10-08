@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Encuesta | Redes Sociales</title>
+{% endblock title %}
+
+{% block content %}
+<h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">Gracias por responder la encuesta!!!</h1>
+
+<div class="text-center">
+    <a href="{% url 'nueva_encuesta' %}"><button type="button" class="btn btn-primary">Responder una nueva
+            encuesta</button></a>
+</div>
+{% endblock content %}
